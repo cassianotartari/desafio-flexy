@@ -120,8 +120,7 @@ class FaixaEntrega
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $createdAt;
-    
-    
+
     public function __construct()
     {
         $this->cepInicial = 88888888;

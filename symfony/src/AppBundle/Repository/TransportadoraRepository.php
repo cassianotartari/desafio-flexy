@@ -13,31 +13,4 @@ use Doctrine\ORM\QueryBuilder;
  */
 class TransportadoraRepository extends EntityRepository
 {
-    /**
-     * 
-     * @param int $cep
-     * @return QueryBuilder
-     */
-    public function getFretePorCep($cep)
-    {
-        $query = $this->createQueryBuilder('t');
-        $query
-            ->select('t.faixasEntrega')
-            ->innerJoin('t.faixasEntrega', 'f')
-            ->andWhere(
-                $query
-                    ->expr()
-                    ->lte('f.cepInicial', ':cep')
-            )
-            ->andWhere(
-                $query
-                    ->expr()
-                    ->gte('f.cepFinal', ':cep')
-            )
-            ->setParameter('cep', $cep)
-            ->orderBy('f.valorQuilo')
-        ;
-        
-        return $query;
-    }
 }

@@ -10,4 +10,30 @@ namespace AppBundle\Repository;
  */
 class FaixaEntregaRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * 
+     * @param int $cep
+     * @return QueryBuilder
+     */
+    public function getFretePorCep($cep)
+    {
+        $query = $this->createQueryBuilder('f');
+        $query
+            ->innerJoin('f.transportadora', 't')
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->lte('f.cepInicial', ':cep')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->gte('f.cepFinal', ':cep')
+            )
+            ->setParameter('cep', $cep)
+            ->orderBy('f.valorQuilo')
+        ;
+        
+        return $query;
+    }
 }

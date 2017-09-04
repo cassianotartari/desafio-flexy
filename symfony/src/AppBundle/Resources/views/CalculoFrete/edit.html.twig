@@ -26,12 +26,26 @@ file that was distributed with this source code.
    
     {{ block('parentForm') }}
     
+    <div class="box box-success hidden" id="{{ form.vars.id }}_faixas-entrega">
+        <div class="box-header">
+            <h4 class="box-title">
+                Resultado
+            </h4>
+        </div>
+        <div class="box-body" id="{{ form.vars.id }}_faixas-entrega--corpo">
+            
+        </div>
+    </div>
     
     <script type="text/javascript">
         $(function(){
+            
             var camposDinamicos = function() {
                 var cep = $("#{{ form.vars.id }}_cep").val();
                 var peso = $("#{{ form.vars.id }}_peso").val();
+                var faixas_entrega = $("#{{ form.vars.id }}_faixas-entrega");
+                var faixas_entrega_corpo = $("#{{ form.vars.id }}_faixas-entrega--corpo");
+                var output = "<ul>";
 
                 $.ajax({
                     type: "POST",
@@ -39,7 +53,15 @@ file that was distributed with this source code.
                     data: { cep: cep, peso: peso },
                     url:"{{ admin.generateUrl('calculaFrete') }}",
                     success: function(data){
-                        console.log(data)
+                        $.each(data, function(key, value) {
+                            output += '<li>'+value+' - '+key+'</li>';
+                        });
+                        output += '</ul>';
+                        faixas_entrega_corpo.eq(0).html(output);
+                        faixas_entrega.removeClass('hidden');
+                    },
+                    error: function (data) {
+                        faixas_entrega.addClass('hidden');
                     }
                 });
             };
