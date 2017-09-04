@@ -1,0 +1,21 @@
+services:
+    app.admin.transportadora:
+        class: AppBundle\Admin\TransportadoraAdmin
+        arguments: [~, AppBundle\Entity\Transportadora, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Transportadora' }
+        public: true
+
+    app.admin.faixa_entrega:
+        class: AppBundle\Admin\FaixaEntregaAdmin
+        arguments: [~, AppBundle\Entity\FaixaEntrega, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Faixas de Entrega' }
+        public: true
+
+    app.admin.calculo_frete:
+        class: AppBundle\Admin\CalculoFreteAdmin
+        arguments: [~, AppBundle\Entity\CalculoFrete, AppBundle:CalculoFreteAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CalculoFrete }
+        public: true

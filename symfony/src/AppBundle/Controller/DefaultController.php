@@ -11,11 +11,8 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-//    public function indexAction(Request $request)
-//    {
-//        // replace this example code with whatever you need
-//        return $this->render('default/index.html.twig', array(
-//            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-//        ));
-//    }
+    public function indexAction(Request $request)
+    {
+        return new \Symfony\Component\HttpFoundation\RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));
+    }
 }

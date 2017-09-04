@@ -118,15 +118,26 @@ fos_user:
     service:
         user_manager: sonata.user.orm.user_manager 
 
-doctrine:
-    dbal:
-        types:
-            json: Sonata\Doctrine\Types\JsonType
-            
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    ApplicationSonataUserBundle: ~
-                    SonataUserBundle: ~
-                    FOSUserBundle: ~
+sonata_admin:
+    title: Desafio Flexy
+    dashboard:
+        groups:
+            user:
+                label:                'Usuário'
+                label_catalogue:      ~
+                items:
+                    - sonata.user.admin.user
+                    - sonata.user.admin.group
+            frete:
+                label:                Frete
+                label_catalogue:      ~
+                items:
+                    - app.admin.transportadora
+                    - app.admin.faixa_entrega
+                    - route: admin_app_calculofrete_create
+                      label:        Calculadora de frete
+#                    - app.admin.calculo_frete
+#                    - route:        calcula_frete
+#                      label:        Calculadora de frete
+#                    - route:        admin_app_transportadora_calculaFrete
+#                      label:        Calculadora de frete 2

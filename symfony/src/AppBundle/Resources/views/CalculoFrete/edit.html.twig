@@ -1,0 +1,61 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock stylesheets %}
+
+
+
+{% block form %}
+   
+    {{ block('parentForm') }}
+    
+    
+    <script type="text/javascript">
+        $(function(){
+            var camposDinamicos = function() {
+                var cep = $("#{{ form.vars.id }}_cep").val();
+                var peso = $("#{{ form.vars.id }}_peso").val();
+
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    data: { cep: cep, peso: peso },
+                    url:"{{ admin.generateUrl('calculaFrete') }}",
+                    success: function(data){
+                        console.log(data)
+                    }
+                });
+            };
+            
+            var qualquercampo = $("[id^='{{ form.vars.id }}']");
+            
+            qualquercampo.each(function() {
+                $(this).unbind();
+                $(this).on('input',function(e){
+                    camposDinamicos();
+                });
+            });
+        });
+    </script>
+    
+{% endblock %}
+
+{% block formactions %}
+{% endblock formactions %}
