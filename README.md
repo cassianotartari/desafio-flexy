@@ -25,6 +25,11 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 1. Acesse [http://localhost:8888](http://localhost:8888)
 2. Realize login com usuário ``admin`` e senha ``admnin``
 
+## Finalizando execução do projeto o projeto
+
+1. Execute ``docker stop $(docker ps -a -q)``
+2. Execute ``docker rm $(docker ps -a -q)``
+
 ## Descrição de alguns arquivos importantes
 
 ```
