@@ -5,5 +5,7 @@ apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
 apt-get update
 apt-cache policy docker-engine
 apt-get install -y docker-engine
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+composer install -d symfony
 docker-compose build
 docker-compose up -d

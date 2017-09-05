@@ -8,7 +8,8 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 ## Requisitos
 
 - Ubuntu 64
-- Docker CE, instruções de intalação podem ser encontradas [aqui](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository).
+- Docker CE, instruções de intalação podem ser encontradas [aqui](https://www.digitalocean.com/community/tutorials/como-instalar-e-usar-o-docker-no-ubuntu-16-04-pt).
+- Composer
 
 ## Instalação
 
@@ -22,6 +23,7 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 ## Executando o projeto
 
 1. Acesse [http://localhost:8888](http://localhost:8888)
+2. Realize login com usuário ``admin`` e senha ``admnin``
 
 ## Descrição de alguns arquivos importantes
 
