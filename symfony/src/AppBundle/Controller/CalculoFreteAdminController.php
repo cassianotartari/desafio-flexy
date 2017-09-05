@@ -77,6 +77,9 @@ class CalculoFreteAdminController extends CRUDController
 
     public function calculaFreteAction(Request $request)
     {
+        if (!$this->isXmlHttpRequest()) {
+            return new JsonResponse('', Response::HTTP_BAD_REQUEST);
+        }
         if($this->validateRequestParametersCalculaFrete($request))
         {
             return new JsonResponse('', Response::HTTP_BAD_REQUEST);

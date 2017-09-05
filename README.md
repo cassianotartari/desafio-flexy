@@ -36,19 +36,14 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 │    └── AppBundle
 │        ├── AppBundle.php
 │        ├── Controller
-│        │   ├── StatsController.php - All endpoints logic related to statistics
-│        │   ├── UrlController.php - All endpoints logic related to Urls
-│        │   └── UserController.php - All endpoints logic related to User
+│        │   ├── CalculoFreteAdminController.php - Utilizado na rota calculaFrete para calcular o frete, a requisição é enviada por ajax
 │        ├── Entity
-│        │   ├── Url.php - Url object
-│        │   └── User.php - User object
+│        │   ├── CalculoFrete.php - Entidade base para o cálculo do frete, somente para agilizar o densenvolvimento do desafio
+│        │   ├── FaixaEntrega.php - Faixas de cep com dados de cobrança pro frete
+│        │   └── Transportadora.php - Transportadora
 │        ├── Repository
-│        │   ├── UrlRepository.php - Url repository queries
-│        │   └── UserRepository.php - User repository queries
-│        └── Services
-│            └── PseudoCryptService.php - Service to generate hashs for shortened urls
-└── tests
-    └── AppBundle
-        └── Controller
-            └── ApiControllerTest.php - Basic functional tests
+│        │   └── FaixaEntregaRepository.php - Queries no banco para verificar faixas conflitantes e calcular valor do frete
+│        └── Validator
+│            └── Constraints
+│                └── CepNoIntervaloValidator.php - Validação de faixas de CEP conflitantes, valida de um cep está dentro de um intervalo de ceps já existente ou se o intervalo a se cadastrar possui algum outro intervalo já cadastrado contido.
 ```
