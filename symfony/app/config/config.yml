@@ -120,6 +120,7 @@ fos_user:
 
 sonata_admin:
     title: Desafio Flexy
+    title_logo: /bundles/app/img/logo_flexy.png
     dashboard:
         groups:
             user:

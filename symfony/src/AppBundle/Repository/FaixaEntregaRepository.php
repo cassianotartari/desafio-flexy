@@ -10,6 +10,8 @@ namespace AppBundle\Repository;
  */
 class FaixaEntregaRepository extends \Doctrine\ORM\EntityRepository
 {
+    const IS_ENABLED = TRUE;
+
     /**
      * 
      * @param int $cep
@@ -30,7 +32,13 @@ class FaixaEntregaRepository extends \Doctrine\ORM\EntityRepository
                     ->expr()
                     ->gte('f.cepFinal', ':cep')
             )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('t.isAtiva', ':isativa')
+            )
             ->setParameter('cep', $cep)
+            ->setParameter('isativa', self::IS_ENABLED)
             ->orderBy('f.valorQuilo')
         ;
         
