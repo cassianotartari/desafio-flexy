@@ -19,7 +19,7 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 3. Execute como **root** ``# ./install.sh`` na raiz do projeto.
 4. Pressione ``ENTER`` quando perguntado para adicionar o repositório.
 
-## Rodando
+## Executando o projeto
 
 1. Acesse [http://localhost:8888](http://localhost:8888)
 
