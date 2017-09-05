@@ -28,7 +28,7 @@ Esse desafio foi escrito utilizando o framework Symfony 2.8 com Doctrine ORM e S
 ## Descrição de alguns arquivos importantes
 
 ```
-.
+symfony
 ├── app
 │   ├── config
 │   │   ├── config.yml - basic configuration of the bundles
