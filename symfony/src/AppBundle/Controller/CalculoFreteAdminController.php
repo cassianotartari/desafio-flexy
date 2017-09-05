@@ -96,7 +96,8 @@ class CalculoFreteAdminController extends CRUDController
             $fretesComPrecoTotal[(string)$faixaEntrega->getTransportadora()] = $valorFrete;
         }
         
-        krsort($fretesComPrecoTotal);
+        //ordena crescente pelo valor do frete
+        asort($fretesComPrecoTotal);
         
         return new JsonResponse($fretesComPrecoTotal);
     }

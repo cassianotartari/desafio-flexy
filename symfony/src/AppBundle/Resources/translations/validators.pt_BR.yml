@@ -1,0 +1,3 @@
+intervalo_ja_cadastrado: Intervalo de CEP já cadastrado.
+cep_no_intervalo: Já exite uma faixa de entrega que possui o CEP '%cep%' em seu intervalo.
+cepinicial_cepfinal_no_intervalo: O CEP inicial '%cepinicial' e o CEP final '%cepfinal%' emglobam uma faixa de CEPs já cadastrada.

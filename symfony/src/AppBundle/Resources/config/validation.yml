@@ -1,0 +1,6 @@
+AppBundle\Entity\FaixaEntrega:
+    properties:
+        cepInicial:
+            - LessThan: 99999999
+        cepFinal:
+            - LessThan: 99999999

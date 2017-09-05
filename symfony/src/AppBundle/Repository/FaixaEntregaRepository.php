@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Transportadora;
+use AppBundle\Entity\FaixaEntrega;
+
 /**
  * FaixaEntregaRepository
  *
@@ -40,6 +43,225 @@ class FaixaEntregaRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('cep', $cep)
             ->setParameter('isativa', self::IS_ENABLED)
             ->orderBy('f.valorQuilo')
+        ;
+        
+        return $query;
+    }
+    
+    /**
+     * Verifica se o cep inicial ou cep final fornecidos já estão presentes em algum intervalo já cadastradao para uma mesma transportadora
+     * 
+     * @param int $cepInicial
+     * @param int $cepFinal
+     * @param Transportadora $transportadora
+     * @return QueryBuilder
+     */
+    public function verificaFaixasConflitantesPorCeps($cepInicial, $cepFinal, Transportadora $transportadora) {
+        $query = $this->createQueryBuilder('f');
+        $query
+            ->innerJoin('f.transportadora', 't')
+            ->andWhere(
+                $query->expr()->orX(
+                    //cep inicial está dentro do intervalo?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->lte('f.cepInicial', ':cepinicial'),
+                        $query
+                            ->expr()
+                            ->gte('f.cepFinal', ':cepinicial')
+                    ),
+                    //cep final está dentro do intervalo?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->lte('f.cepInicial', ':cepfinal'),
+                        $query
+                            ->expr()
+                            ->gte('f.cepFinal', ':cepfinal')
+                    ),
+                    //o intervalo está dentro do cep inicial a cep final?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->gte('f.cepInicial', ':cepinicial'),
+                        $query
+                            ->expr()
+                            ->lte('f.cepFinal', ':cepfinal')
+                    )
+                )
+            )
+            //analise de intervalos na mesma trasportadora
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('f.transportadora', ':transportadora')
+            )
+            //transportadora está ativa?
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('t.isAtiva', ':isativa')
+            )
+            ->setParameter('cepinicial', $cepInicial)
+            ->setParameter('cepfinal', $cepFinal)
+            ->setParameter('transportadora', $transportadora)
+            ->setParameter('isativa', self::IS_ENABLED)
+        ;
+        
+        return $query;
+    }
+    
+    /**
+     * Verifica se o cep inicial ou cep final fornecidos já estão presentes em algum intervalo já cadastradao para uma mesma transportadora, excluindo a si, no caso de um update
+     * 
+     * @param int $cepInicial
+     * @param int $cepFinal
+     * @param FaixaEntrega $faixaEntrega
+     * @return QueryBuilder
+     */
+    public function verificaFaixasConflitantesPorCepsExcluindoASi($cepInicial, $cepFinal, FaixaEntrega $faixaEntrega) {
+        $query = $this->createQueryBuilder('f');
+        $query
+            ->innerJoin('f.transportadora', 't')
+            ->andWhere(
+                $query->expr()->orX(
+                    //cep inicial está dentro do intervalo?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->lte('f.cepInicial', ':cepinicial'),
+                        $query
+                            ->expr()
+                            ->gte('f.cepFinal', ':cepinicial')
+                    ),
+                    //cep final está dentro do intervalo?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->lte('f.cepInicial', ':cepfinal'),
+                        $query
+                            ->expr()
+                            ->gte('f.cepFinal', ':cepfinal')
+                    ),
+                    //o intervalo está dentro do cep inicial a cep final?
+                    $query->expr()->andX(
+                        $query
+                            ->expr()
+                            ->gte('f.cepInicial', ':cepinicial'),
+                        $query
+                            ->expr()
+                            ->lte('f.cepFinal', ':cepfinal')
+                    )
+                )
+            )
+            //exclui a faixa de entrega que está sendo atualizada
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->neq('f.id', ':faixaentregaid')
+            )
+            //analise de intervalos na mesma trasportadora
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('f.transportadora', ':transportadora')
+            )
+            //transportadora está ativa?
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('t.isAtiva', ':isativa')
+            )
+            ->setParameter('cepinicial', $cepInicial)
+            ->setParameter('cepfinal', $cepFinal)
+            ->setParameter('transportadora', $faixaEntrega->getTransportadora())
+            ->setParameter('faixaentregaid', $faixaEntrega->getId())
+            ->setParameter('isativa', self::IS_ENABLED)
+        ;
+        
+        return $query;
+    }
+    
+    /**
+     * Verifica se o cep fornecido já está presente em algum intervalo cadastradao para uma mesma transportadora
+     * 
+     * @param int $cep
+     * @param Transportadora $transportadora
+     * @return QueryBuilder
+     */
+    public function verificaFaixasConflitantesPorCepUnico($cep, Transportadora $transportadora) {
+        $query = $this->createQueryBuilder('f');
+        $query
+            ->innerJoin('f.transportadora', 't')
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->lte('f.cepInicial', ':cep')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->gte('f.cepFinal', ':cep')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('f.transportadora', ':transportadora')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('t.isAtiva', ':isativa')
+            )
+            ->setParameter('cep', $cep)
+            ->setParameter('transportadora', $transportadora)
+            ->setParameter('isativa', self::IS_ENABLED)
+        ;
+        
+        return $query;
+    }
+    
+    /**
+     * Verifica se o cep fornecido já está presente em algum intervalo cadastradao para uma mesma transportadora descpmtamdp a própria entidade
+     * 
+     * @param int $cep
+     * @param \AppBundle\Entity\FaixaEntrega $faixaEntrega
+     * @return QueryBuilder
+     */
+    public function verificaFaixasConflitantesPorCepUnicoExcluindoASi($cep, FaixaEntrega $faixaEntrega) {
+        $query = $this->createQueryBuilder('f');
+        $query
+            ->innerJoin('f.transportadora', 't')
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->lte('f.cepInicial', ':cep')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->gte('f.cepFinal', ':cep')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->neq('f.id', ':faixaentregaid')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('f.transportadora', ':transportadora')
+            )
+            ->andWhere(
+                $query
+                    ->expr()
+                    ->eq('t.isAtiva', ':isativa')
+            )
+            ->setParameter('cep', $cep)
+            ->setParameter('faixaentregaid', $faixaEntrega->getId())
+            ->setParameter('transportadora', $faixaEntrega->getTransportadora())
+            ->setParameter('isativa', self::IS_ENABLED)
         ;
         
         return $query;

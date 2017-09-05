@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * FaixaEntrega
@@ -12,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FaixaEntregaRepository")
  * @UniqueEntity(fields= {"cepInicial", "cepFinal", "transportadora"}, message="intervalo_ja_cadastrado")
  * @ORM\HasLifecycleCallbacks
+ * @AppAssert\CepNoIntervalo
  */
 class FaixaEntrega
 {
@@ -103,7 +105,7 @@ class FaixaEntrega
     
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transportadora", inversedBy="faixasEntrega", cascade={"persist"})
-     * @ORM\JoinColumn(name="transportadora_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="transportadora_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $transportadora;
 

@@ -3,19 +3,31 @@ services:
         class: AppBundle\Admin\TransportadoraAdmin
         arguments: [~, AppBundle\Entity\Transportadora, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Transportadora' }
+            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Transportadora', label_translator_strategy: sonata.admin.label.strategy.underscore }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "AppBundle" ] ]
 
     app.admin.faixa_entrega:
         class: AppBundle\Admin\FaixaEntregaAdmin
         arguments: [~, AppBundle\Entity\FaixaEntrega, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Faixas de Entrega' }
+            - { name: sonata.admin, manager_type: orm, group: Frete, label: 'Faixas de Entrega', label_translator_strategy: sonata.admin.label.strategy.underscore }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "AppBundle" ] ]
 
     app.admin.calculo_frete:
         class: AppBundle\Admin\CalculoFreteAdmin
         arguments: [~, AppBundle\Entity\CalculoFrete, AppBundle:CalculoFreteAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: CalculoFrete }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CalculoFrete, label_translator_strategy: sonata.admin.label.strategy.underscore }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "AppBundle" ] ]
+
+    validator.cep_no_intervalo:
+        class: AppBundle\Validator\Constraints\CepNoIntervaloValidator
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: validator.constraint_validator, alias: cep_no_intervalo }

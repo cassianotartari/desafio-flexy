@@ -1,0 +1,65 @@
+list:
+    label_id: '#'
+    label_nome: Nome
+    label_transportadora: Transportadora
+    label_is_ativa: Ativa?
+    label__action: Ações
+    label_updated_at: Atualizado em
+    label_created_at: Criado em
+    label_cep_inicial: CEP inicial
+    label_cep_final: CEP final
+    label_peso_inicial: Peso inicial
+    label_peso_final: Peso final
+    label_valor_quilo: Valor / kg
+    label_valor_quilo_adicional: Valor adicional / kg
+    label_prazo_entrega_inicial: Prazo de entrega inicial
+    label_prazo_entrega_final: Prazo de entrega final
+    label_prazo_entrega_adicional_por_peso: Prazo de entrega adicional / valor peso adicional
+    label_peso_para_prazo_adicional: Peso adicional para prazo adicional
+show:
+    label_id: '#'
+    label_nome: Nome
+    label_transportadora: Transportadora
+    label_is_ativa: Ativa?
+    label__action: Ações
+    label_updated_at: Atualizado em
+    label_created_at: Criado em
+    label_cep_inicial: CEP inicial
+    label_cep_final: CEP final
+    label_peso_inicial: Peso inicial
+    label_peso_final: Peso final
+    label_valor_quilo: Valor / kg
+    label_valor_quilo_adicional: Valor adicional / kg
+    label_prazo_entrega_inicial: Prazo de entrega inicial
+    label_prazo_entrega_final: Prazo de entrega final
+    label_prazo_entrega_adicional_por_peso: Prazo de entrega adicional / valor peso adicional
+    label_peso_para_prazo_adicional: Peso adicional para prazo adicional
+form:
+    label_id: '#'
+    label_transportadora: Transportadora
+    label_nome: Nome
+    label_is_ativa: Ativa?
+    label__action: Ações
+    label_updated_at: Atualizado em
+    label_created_at: Criado em
+    label_faixas_entrega: Faixas de entrega
+    label_cep_inicial: CEP inicial
+    label_cep_final: CEP final
+    label_peso_inicial: Peso inicial
+    label_peso_final: Peso final
+    label_valor_quilo: Valor / kg
+    label_valor_quilo_adicional: Valor adicional / kg
+    label_prazo_entrega_inicial: Prazo de entrega inicial
+    label_prazo_entrega_final: Prazo de entrega final
+    label_prazo_entrega_adicional_por_peso: Prazo de entrega adicional / valor peso adicional
+    label_peso_para_prazo_adicional: Peso adicional para prazo adicional
+    label_cep: CEP
+    label_peso: Peso
+    
+breadcrumb:
+    link_transportadora_list: Transportadoras
+    link_faixa_entrega_list: Faixas de entrega
+    link_faixa_entrega_create: Nova
+    link_transportadora_create: Nova
+    link_calculo_frete_list: Calculadora de frete
+    link_calculo_frete_create: Novo

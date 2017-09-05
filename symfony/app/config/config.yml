@@ -3,11 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-    locale: en
-
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
@@ -121,15 +116,19 @@ fos_user:
 sonata_admin:
     title: Desafio Flexy
     title_logo: /bundles/app/img/logo_flexy.png
+    templates:
+        layout:  AppBundle::layout.html.twig
     dashboard:
         groups:
             user:
+                icon:            '<i class="fa fa-user"></i>'
                 label:                'Usuário'
                 label_catalogue:      ~
                 items:
                     - sonata.user.admin.user
                     - sonata.user.admin.group
             frete:
+                icon:            '<i class="fa fa-truck"></i>'
                 label:                Frete
                 label_catalogue:      ~
                 items:

@@ -7,6 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class FaixaEntregaAdmin extends AbstractAdmin
 {
@@ -17,6 +20,7 @@ class FaixaEntregaAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
+            ->add('transportadora')
             ->add('nome')
             ->add('cepInicial')
             ->add('cepFinal')
@@ -28,6 +32,8 @@ class FaixaEntregaAdmin extends AbstractAdmin
             ->add('prazoEntregaFinal')
             ->add('prazoEntregaAdicionalPorPeso')
             ->add('pesoParaPrazoAdicional')
+            ->add('updatedAt')
+            ->add('createdAt')
         ;
     }
 
@@ -38,6 +44,7 @@ class FaixaEntregaAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
+            ->add('transportadora')
             ->add('nome')
             ->add('cepInicial')
             ->add('cepFinal')
@@ -60,13 +67,39 @@ class FaixaEntregaAdmin extends AbstractAdmin
     }
 
     /**
+     * @param ShowMapper $showMapper
+     */
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->add('id')
+            ->add('transportadora')
+            ->add('nome')
+            ->add('cepInicial')
+            ->add('cepFinal')
+            ->add('pesoInicial')
+            ->add('pesoFinal')
+            ->add('valorQuilo')
+            ->add('valorQuiloAdicional')
+            ->add('prazoEntregaInicial')
+            ->add('prazoEntregaFinal')
+            ->add('prazoEntregaAdicionalPorPeso')
+            ->add('pesoParaPrazoAdicional')
+            ->add('updatedAt')
+            ->add('createdAt')
+        ;
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        //somente adicionar o campo transportadora no admin dela
+        //para utilizar no inline form de cadastro de transportadora ele não é adicionado
         if ($this->getRoot()->getClass() == get_class($this->getSubject()))
         {
-            $formMapper->add('transportadora', 'sonata_type_model_list');
+            $formMapper->add('transportadora');
         }
         $formMapper
             ->add('nome')
@@ -83,24 +116,4 @@ class FaixaEntregaAdmin extends AbstractAdmin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('nome')
-            ->add('cepInicial')
-            ->add('cepFinal')
-            ->add('pesoInicial')
-            ->add('pesoFinal')
-            ->add('valorQuilo')
-            ->add('valorQuiloAdicional')
-            ->add('prazoEntregaInicial')
-            ->add('prazoEntregaFinal')
-            ->add('prazoEntregaAdicionalPorPeso')
-            ->add('pesoParaPrazoAdicional')
-        ;
-    }
 }

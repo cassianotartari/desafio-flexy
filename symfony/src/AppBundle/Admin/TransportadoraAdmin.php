@@ -19,6 +19,8 @@ class TransportadoraAdmin extends AbstractAdmin
             ->add('id')
             ->add('nome')
             ->add('isAtiva')
+            ->add('updatedAt')
+            ->add('createdAt')
         ;
     }
 
@@ -69,6 +71,8 @@ class TransportadoraAdmin extends AbstractAdmin
             ->add('id')
             ->add('nome')
             ->add('isAtiva')
+            ->add('updatedAt')
+            ->add('createdAt')
         ;
     }
 }
