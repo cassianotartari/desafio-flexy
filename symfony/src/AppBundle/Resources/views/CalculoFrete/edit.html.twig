@@ -54,7 +54,7 @@ file that was distributed with this source code.
                     url:"{{ admin.generateUrl('calculaFrete') }}",
                     success: function(data){
                         $.each(data, function(key, value) {
-                            output += '<li>'+value+' - '+key+'</li>';
+                            output += '<li> Valor do frete: <strong>R$'+value+'</strong> - Transportadora: '+key+'</li>';
                         });
                         output += '</ul>';
                         faixas_entrega_corpo.eq(0).html(output);
