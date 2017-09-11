@@ -36,3 +36,6 @@ RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
+
+ADD start.sh /start.sh
+ENTRYPOINT ["/start.sh"]
