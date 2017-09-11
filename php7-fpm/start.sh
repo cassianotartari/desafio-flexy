@@ -1,4 +1,2 @@
-usermod -u 1000 www-data
-chmod 777 -R /var/www/symfony/app/logs
-chmod 777 -R /var/www/symfony/app/cache
+#!/bin/bash
 php /var/www/symfony/app/console assets:install web --symlink

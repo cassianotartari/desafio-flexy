@@ -37,5 +37,8 @@ RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
 
-ADD start.sh /start.sh
-ENTRYPOINT ["/start.sh"]
+RUN usermod -u 1000 www-data
+RUN chown -R www-data:www-data /var/www/symfony
+RUN chown -R www-data:www-data /var/www/symfony
+#ADD start.sh /start.sh
+#ENTRYPOINT ["/start.sh"]
