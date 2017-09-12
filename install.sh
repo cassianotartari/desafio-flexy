@@ -13,6 +13,6 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 composer install -d symfony
 docker-compose build
 docker-compose up -d
-#docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/logs
-#docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/cache
-#docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console assets:install web --symlink
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/logs
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/cache
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console assets:install web --symlink
