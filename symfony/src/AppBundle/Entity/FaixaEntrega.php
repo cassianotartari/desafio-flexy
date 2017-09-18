@@ -137,14 +137,16 @@ class FaixaEntrega
         $this->pesoParaPrazoAdicional = 5;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return ($this->nome != "") ? $this->nome : '';
     }
     
     /**
      * @ORM\PrePersist()
      */
-    public function prePersist() {
+    public function prePersist()
+    {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -152,7 +154,8 @@ class FaixaEntrega
     /**
      * @ORM\PreUpdate()
      */
-    public function preUpdate() {
+    public function preUpdate()
+    {
         $this->updatedAt = new \DateTime();
     }
 
@@ -454,7 +457,7 @@ class FaixaEntrega
         return $this->transportadora;
     }
     
-        /**
+    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt

@@ -28,7 +28,5 @@ class AppExtension extends Extension
 
     public function prepend(ContainerBuilder $container)
     {
-        
     }
-
 }

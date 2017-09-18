@@ -34,6 +34,7 @@ show:
     label_prazo_entrega_final: Prazo de entrega final
     label_prazo_entrega_adicional_por_peso: Prazo de entrega adicional / valor peso adicional
     label_peso_para_prazo_adicional: Peso adicional para prazo adicional
+    label_valor_do_frete: Valor do frete
 form:
     label_id: '#'
     label_transportadora: Transportadora

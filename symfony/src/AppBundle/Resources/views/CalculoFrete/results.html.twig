@@ -1,0 +1,7 @@
+{% spaceless %}
+<ul>
+{% for calculoFrete in calculosFrete %}
+    <li>{{ 'show.label_valor_do_frete'|trans({},'AppBundle') }}: <strong>R${{ calculoFrete.valor|number_format(2, ',', '.') }}</strong> - {{ 'show.label_transportadora'|trans({},'AppBundle') }}: <strong>{{ calculoFrete.transportadora }}</strong></li>
+{% endfor %}
+</ul>
+{% endspaceless %}

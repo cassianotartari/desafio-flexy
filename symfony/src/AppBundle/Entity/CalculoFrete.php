@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="calculo_frete")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
  */
 class CalculoFrete
 {
@@ -39,6 +40,37 @@ class CalculoFrete
      * @ORM\Column(name="valor", type="float", nullable=false)
      */
     private $valor;
+    
+    /**
+     * @var \Application\Sonata\UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    protected $usuario;
+    
+    /**
+     * @var \AppBundle\Entity\Transportadora
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transportadora")
+     * @ORM\JoinColumn(name="transportadora_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    protected $transportadora;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime();
+    }
     
     /**
      * Get id
@@ -89,7 +121,7 @@ class CalculoFrete
      */
     public function setCep($cep)
     {
-        $this->cepInicial = $cep;
+        $this->cep = $cep;
         
         return $this;
     }
@@ -120,5 +152,77 @@ class CalculoFrete
         $this->valor = $valor;
         
         return $this;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return CalculoFrete
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $usuario
+     *
+     * @return CalculoFrete
+     */
+    public function setUsuario(\Application\Sonata\UserBundle\Entity\User $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set transportadora
+     *
+     * @param \AppBundle\Entity\Transportadora $transportadora
+     *
+     * @return CalculoFrete
+     */
+    public function setTransportadora(\AppBundle\Entity\Transportadora $transportadora)
+    {
+        $this->transportadora = $transportadora;
+
+        return $this;
+    }
+
+    /**
+     * Get transportadora
+     *
+     * @return \AppBundle\Entity\Transportadora
+     */
+    public function getTransportadora()
+    {
+        return $this->transportadora;
     }
 }

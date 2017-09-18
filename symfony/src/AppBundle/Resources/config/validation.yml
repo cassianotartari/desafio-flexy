@@ -1,6 +1,66 @@
 AppBundle\Entity\FaixaEntrega:
     properties:
         cepInicial:
-            - LessThan: 99999999
+            - NotBlank: ~
+            - Type: integer
+            - LessThanOrEqual: 99999999
+            - Length:
+                min: 8
+                max: 8
         cepFinal:
-            - LessThan: 99999999
+            - NotBlank: ~
+            - Type: integer
+            - LessThanOrEqual: 99999999
+            - Length:
+                min: 8
+                max: 8
+            - Expression:
+                expression: "this.getCepInicial() <= this.getCepFinal()"
+                message: "numero_incial_maior_que_final"
+        pesoInicial:
+            - Type: numeric
+            - NotBlank: ~
+            - GreaterThanOrEqual: 0
+        pesoFinal:
+            - Type: numeric
+            - NotBlank: ~
+            - GreaterThanOrEqual: 0
+            - Expression:
+                expression: "this.getPesoInicial() <= this.getPesoFinal()"
+                message: "numero_incial_maior_que_final"
+        valorQuilo:
+            - Type: numeric
+            - NotBlank: ~
+            - GreaterThanOrEqual: 0
+        valorQuiloAdicional:
+            - Type: numeric
+            - GreaterThanOrEqual: 0
+        prazoEntregaInicial:
+            - Type: integer
+            - GreaterThanOrEqual: 0
+        prazoEntregaFinal:
+            - Type: integer
+            - GreaterThanOrEqual: 1
+            - Expression:
+                expression: "this.getPrazoEntregaInicial() <= this.getPrazoEntregaFinal()"
+                message: "numero_incial_maior_que_final"
+        prazoEntregaAdicionalPorPeso:
+            - Type: integer
+            - GreaterThanOrEqual: 0
+        pesoParaPrazoAdicional:
+            - Type: numeric
+            - GreaterThanOrEqual: 0
+
+AppBundle\Entity\CalculoFrete:
+    properties:
+        cep:
+            - NotBlank: ~
+            - Type: integer
+            - LessThanOrEqual: 99999999
+            - Length:
+                min: 8
+                max: 8
+        peso:
+            - Type: numeric
+            - NotBlank: ~
+            - GreaterThanOrEqual: 0

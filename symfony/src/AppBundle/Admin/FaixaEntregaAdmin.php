@@ -97,8 +97,7 @@ class FaixaEntregaAdmin extends AbstractAdmin
     {
         //somente adicionar o campo transportadora no admin dela
         //para utilizar no inline form de cadastro de transportadora ele não é adicionado
-        if ($this->getRoot()->getClass() == get_class($this->getSubject()))
-        {
+        if ($this->getRoot()->getClass() == get_class($this->getSubject())) {
             $formMapper->add('transportadora');
         }
         $formMapper
@@ -115,5 +114,4 @@ class FaixaEntregaAdmin extends AbstractAdmin
             ->add('pesoParaPrazoAdicional')
         ;
     }
-
 }

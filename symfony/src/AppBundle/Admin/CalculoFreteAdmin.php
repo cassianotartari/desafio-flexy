@@ -24,7 +24,8 @@ class CalculoFreteAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTemplate('edit', 'AppBundle:CalculoFrete:edit.html.twig');
     }
 

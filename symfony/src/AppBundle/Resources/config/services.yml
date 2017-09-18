@@ -31,3 +31,17 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: validator.constraint_validator, alias: cep_no_intervalo }
+    
+    app.faixa_entrega_repository:
+        class: AppBundle\Repository\FaixaEntregaRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\FaixaEntrega
+            
+    app.calcula_frete_service:
+        class: AppBundle\Utils\CalculaFreteService
+        arguments: ['@app.faixa_entrega_repository', '@security.token_storage']
+    
+    app.valida_request_calcula_frete:
+        class: AppBundle\Utils\ValidaRequestCalculoFreteService
+        arguments: ['@validator']

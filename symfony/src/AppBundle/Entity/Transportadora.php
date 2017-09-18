@@ -62,7 +62,8 @@ class Transportadora
     /**
      * @ORM\PrePersist()
      */
-    public function prePersist() {
+    public function prePersist()
+    {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -70,7 +71,8 @@ class Transportadora
     /**
      * @ORM\PreUpdate()
      */
-    public function preUpdate() {
+    public function preUpdate()
+    {
         $this->updatedAt = new \DateTime();
     }
 
@@ -174,7 +176,7 @@ class Transportadora
         return $this->faixasEntrega;
     }
     
-        /**
+    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt

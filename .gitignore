@@ -1,0 +1,4 @@
+/.data
+/logs/*
+/nbproject
+.php_cs*

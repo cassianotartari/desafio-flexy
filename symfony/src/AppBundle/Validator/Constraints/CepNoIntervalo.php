@@ -20,5 +20,4 @@ class CepNoIntervalo extends Constraint
     {
         return 'cep_no_intervalo';
     }
-
 }

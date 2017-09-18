@@ -45,19 +45,14 @@ file that was distributed with this source code.
                 var peso = $("#{{ form.vars.id }}_peso").val();
                 var faixas_entrega = $("#{{ form.vars.id }}_faixas-entrega");
                 var faixas_entrega_corpo = $("#{{ form.vars.id }}_faixas-entrega--corpo");
-                var output = "<ul>";
 
                 $.ajax({
                     type: "POST",
-                    dataType: 'json',
+                    dataType: 'html',
                     data: { cep: cep, peso: peso },
                     url:"{{ admin.generateUrl('calculaFrete') }}",
                     success: function(data){
-                        $.each(data, function(key, value) {
-                            output += '<li> Valor do frete: <strong>R$'+value+'</strong> - Transportadora: '+key+'</li>';
-                        });
-                        output += '</ul>';
-                        faixas_entrega_corpo.eq(0).html(output);
+                        faixas_entrega_corpo.eq(0).html(data);
                         faixas_entrega.removeClass('hidden');
                     },
                     error: function (data) {
