@@ -464,7 +464,7 @@ class FaixaEntrega
      *
      * @return Midia
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\Datetime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -488,7 +488,7 @@ class FaixaEntrega
      *
      * @return Midia
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\Datetime $createdAt)
     {
         $this->createdAt = $createdAt;
 

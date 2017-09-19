@@ -161,7 +161,7 @@ class CalculoFrete
      *
      * @return CalculoFrete
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\Datetime $createdAt)
     {
         $this->createdAt = $createdAt;
 
