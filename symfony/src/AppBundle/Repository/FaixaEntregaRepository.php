@@ -98,7 +98,7 @@ class FaixaEntregaRepository extends EntityRepository
             ->andWhere(
                 $query
                     ->expr()
-                    ->eq('f.transportadora', ':transportadora')
+                    ->eq('t.id', ':transportadora')
             )
             //transportadora está ativa?
             ->andWhere(
@@ -108,7 +108,7 @@ class FaixaEntregaRepository extends EntityRepository
             )
             ->setParameter('cepinicial', $cepInicial)
             ->setParameter('cepfinal', $cepFinal)
-            ->setParameter('transportadora', $transportadora)
+            ->setParameter('transportadora', $transportadora->getId())
             ->setParameter('isativa', self::IS_ENABLED)
         ;
         
@@ -212,7 +212,7 @@ class FaixaEntregaRepository extends EntityRepository
             ->andWhere(
                 $query
                     ->expr()
-                    ->eq('f.transportadora', ':transportadora')
+                    ->eq('t.id', ':transportadora')
             )
             ->andWhere(
                 $query
@@ -220,7 +220,7 @@ class FaixaEntregaRepository extends EntityRepository
                     ->eq('t.isAtiva', ':isativa')
             )
             ->setParameter('cep', $cep)
-            ->setParameter('transportadora', $transportadora)
+            ->setParameter('transportadora', $transportadora->getId())
             ->setParameter('isativa', self::IS_ENABLED)
         ;
         

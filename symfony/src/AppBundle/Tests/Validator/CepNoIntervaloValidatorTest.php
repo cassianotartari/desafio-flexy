@@ -6,6 +6,7 @@ use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTes
 use AppBundle\Validator\Constraints\CepNoIntervalo;
 use AppBundle\Validator\Constraints\CepNoIntervaloValidator;
 use AppBundle\Entity\FaixaEntrega;
+use AppBundle\Entity\Transportadora;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\DependencyInjection\Container;
@@ -23,6 +24,12 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
      * @var Container
      */
     protected static $container;
+    
+    /**
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
     
     public static function setUpBeforeClass()
     {
@@ -44,8 +51,8 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
 
     protected function createValidator()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        return new CepNoIntervaloValidator($em);
+        $this->em = $this->get('doctrine.orm.entity_manager');
+        return new CepNoIntervaloValidator($this->em);
     }
 
     public function testEmptyStringIsValid()
@@ -63,4 +70,52 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
             ->assertRaised();
     }
     
+    public function testValidFaixaEntrega()
+    {   
+        $transportadoraA = new Transportadora();
+        $transportadoraA->setNome('Transportadora A');
+        
+        $faixaEntrega = new FaixaEntrega();
+        $faixaEntrega->setNome('Faixa entrega 1');
+        $faixaEntrega->setCepInicial(88888888);
+        $faixaEntrega->setCepFinal(88888999);
+        $faixaEntrega->setPesoInicial(1);
+        $faixaEntrega->setPesoFinal(5);
+        $faixaEntrega->setValorQuilo(5);
+        $faixaEntrega->setValorQuiloAdicional(6.5);
+        $faixaEntrega->setPrazoEntregaInicial(5);
+        $faixaEntrega->setPrazoEntregaFinal(7);
+        $faixaEntrega->setPrazoEntregaAdicionalPorPeso(1);
+        $faixaEntrega->setPesoParaPrazoAdicional(5);
+        $faixaEntrega->setTransportadora($transportadoraA);
+        
+        $this->validator->validate($faixaEntrega, new CepNoIntervalo());
+
+        $this->assertNoViolation();
+    }
+    
+    public function testInvalidFaixaEntrega()
+    {
+        $repository = $this->em->getRepository(Transportadora::class);
+        $transportadoraA = $repository->findOneByNome('Transportadora A');
+        
+        $faixaEntrega = new FaixaEntrega();
+        $faixaEntrega->setNome('Faixa entrega 1');
+        $faixaEntrega->setCepInicial(88888888);
+        $faixaEntrega->setCepFinal(88888999);
+        $faixaEntrega->setPesoInicial(1);
+        $faixaEntrega->setPesoFinal(5);
+        $faixaEntrega->setValorQuilo(5);
+        $faixaEntrega->setValorQuiloAdicional(6.5);
+        $faixaEntrega->setPrazoEntregaInicial(5);
+        $faixaEntrega->setPrazoEntregaFinal(7);
+        $faixaEntrega->setPrazoEntregaAdicionalPorPeso(1);
+        $faixaEntrega->setPesoParaPrazoAdicional(5);
+        $faixaEntrega->setTransportadora($transportadoraA);
+
+        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+
+        $this->buildViolation('cepinicial_cepfinal_no_intervalo')
+            ->assertRaised();
+    }
 }
