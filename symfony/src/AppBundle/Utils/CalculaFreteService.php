@@ -6,6 +6,8 @@ use AppBundle\Repository\FaixaEntregaRepository;
 use AppBundle\Entity\FaixaEntrega;
 use AppBundle\Entity\CalculoFrete;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use AppBundle\Event\AfterCalculoFretePorEvent;
+use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 
 class CalculaFreteService
 {
@@ -23,12 +25,19 @@ class CalculaFreteService
     
     /**
      *
+     * @var TraceableEventDispatcher
+     */
+    private $dispacher;
+    
+    /**
+     *
      * @param FaixaEntregaRepository $faixaEntregaRepository
      */
-    public function __construct(FaixaEntregaRepository $faixaEntregaRepository, TokenStorage $token)
+    public function __construct(FaixaEntregaRepository $faixaEntregaRepository, TokenStorage $token, TraceableEventDispatcher $dispacher)
     {
         $this->faixaEntregaRepository = $faixaEntregaRepository;
         $this->token = $token;
+        $this->dispacher = $dispacher;
     }
     
     private function calculaPesoExcedente($peso, FaixaEntrega $faixaEntrega)
@@ -101,6 +110,10 @@ class CalculaFreteService
         
         //ordena crescente pelo valor do frete
         usort($fretesComPrecoTotal, array($this, "precoMenor"));
+        
+        //enviando event para log dos cálculos
+        $event = new AfterCalculoFretePorEvent($fretesComPrecoTotal);
+        $this->dispacher->dispatch('calculofrete.done', $event);
         
         return $fretesComPrecoTotal;
     }

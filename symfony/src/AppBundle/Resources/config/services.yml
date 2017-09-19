@@ -40,8 +40,14 @@ services:
             
     app.calcula_frete_service:
         class: AppBundle\Utils\CalculaFreteService
-        arguments: ['@app.faixa_entrega_repository', '@security.token_storage']
+        arguments: ['@app.faixa_entrega_repository', '@security.token_storage', '@event_dispatcher']
     
     app.valida_request_calcula_frete:
         class: AppBundle\Utils\ValidaRequestCalculoFreteService
         arguments: ['@validator']
+        
+    app.calculo_frete_log_listener:
+        class: AppBundle\Listener\CalculoFreteLogListener
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_listener, event: calculofrete.done, method: onCalculoFrete }

@@ -15,4 +15,7 @@ docker-compose build
 docker-compose up -d
 docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/logs
 docker exec -ti $(docker ps -f name=desafioflexy_php -q) chmod 777 -R app/cache
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console doctrine:database:create
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console doctrine:schema:update --force
+docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console fos:user:create admin user@desafioflexy.com admin --super-admin
 docker exec -ti $(docker ps -f name=desafioflexy_php -q) php app/console assets:install web --symlink

@@ -30,19 +30,6 @@ class CalculoFreteAdminController extends CRUDController
         
         $calculosFrete = $calculaFreteService->calculaFretePorCepEPeso($cep, $peso);
         
-        $fretesComPrecoTotal = [];
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        /* @var $calculoFrete \AppBundle\Entity\CalculoFrete */
-        foreach ($calculosFrete as $calculoFrete) {
-            $fretesComPrecoTotal[(string)$calculoFrete->getTransportadora()] = $calculoFrete->getValor();
-            //log
-            $em->persist($calculoFrete);
-        }
-        
-        $em->flush();
-        
         return $this->render('AppBundle:CalculoFrete:results.html.twig', array(
             'calculosFrete' => $calculosFrete
         ));
