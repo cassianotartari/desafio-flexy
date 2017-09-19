@@ -123,20 +123,6 @@ class FaixaEntrega
      */
     protected $createdAt;
 
-    public function __construct()
-    {
-        $this->cepInicial = 88888888;
-        $this->cepFinal = 88888999;
-        $this->pesoInicial = 1;
-        $this->pesoFinal = 5;
-        $this->valorQuilo = 5;
-        $this->valorQuiloAdicional = 6.5;
-        $this->prazoEntregaInicial = 5;
-        $this->prazoEntregaFinal = 7;
-        $this->prazoEntregaAdicionalPorPeso = 1;
-        $this->pesoParaPrazoAdicional = 5;
-    }
-
     public function __toString()
     {
         return ($this->nome != "") ? $this->nome : '';

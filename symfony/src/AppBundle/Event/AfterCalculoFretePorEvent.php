@@ -22,6 +22,4 @@ class AfterCalculoFretePorEvent extends Event
     {
         $this->fretesCalculados = $fretesCalculados;
     }
-
-
 }
