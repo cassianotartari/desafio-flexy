@@ -30,7 +30,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
      * @var \Doctrine\ORM\EntityManager
      */
     private $em;
-    
+
     public static function setUpBeforeClass()
     {
         self::$kernel = new \AppKernel('dev', true);
@@ -94,7 +94,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
         $this->assertNoViolation();
     }
     
-    public function testInvalidFaixaEntrega()
+    public function testInvalidFaixaEntregaComErroNoCepInicialEFinal()
     {
         $repository = $this->em->getRepository(Transportadora::class);
         $transportadoraA = $repository->findOneByNome('Transportadora A');
@@ -114,8 +114,76 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
         $faixaEntrega->setTransportadora($transportadoraA);
 
         $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        
+        $this->buildViolation('cep_no_intervalo')
+            ->atPath('property.path.cepInicial')
+            ->setParameter('%cep%', $faixaEntrega->getCepInicial())
+            ->buildNextViolation('cep_no_intervalo')
+            ->atPath('property.path.cepFinal')
+            ->setParameter('%cep%', $faixaEntrega->getCepFinal())
+            ->buildNextViolation('cepinicial_cepfinal_no_intervalo')
+            ->setParameter('%cepinicial%', $faixaEntrega->getCepInicial())
+            ->setParameter('%cepfinal%', $faixaEntrega->getCepFinal())
+            ->assertRaised();
+    }
+    
+    public function testInvalidFaixaEntregaComErroNoCepInicial()
+    {
+        $repository = $this->em->getRepository(Transportadora::class);
+        $transportadoraA = $repository->findOneByNome('Transportadora A');
+        
+        $faixaEntrega = new FaixaEntrega();
+        $faixaEntrega->setNome('Faixa entrega 1');
+        $faixaEntrega->setCepInicial(88888888);
+        $faixaEntrega->setCepFinal(88889999);
+        $faixaEntrega->setPesoInicial(1);
+        $faixaEntrega->setPesoFinal(5);
+        $faixaEntrega->setValorQuilo(5);
+        $faixaEntrega->setValorQuiloAdicional(6.5);
+        $faixaEntrega->setPrazoEntregaInicial(5);
+        $faixaEntrega->setPrazoEntregaFinal(7);
+        $faixaEntrega->setPrazoEntregaAdicionalPorPeso(1);
+        $faixaEntrega->setPesoParaPrazoAdicional(5);
+        $faixaEntrega->setTransportadora($transportadoraA);
 
-        $this->buildViolation('cepinicial_cepfinal_no_intervalo')
+        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        
+        $this->buildViolation('cep_no_intervalo')
+            ->atPath('property.path.cepInicial')
+            ->setParameter('%cep%', $faixaEntrega->getCepInicial())
+            ->buildNextViolation('cepinicial_cepfinal_no_intervalo')
+            ->setParameter('%cepinicial%', $faixaEntrega->getCepInicial())
+            ->setParameter('%cepfinal%', $faixaEntrega->getCepFinal())
+            ->assertRaised();
+    }
+    
+    public function testInvalidFaixaEntregaComErroNoCepFinal()
+    {
+        $repository = $this->em->getRepository(Transportadora::class);
+        $transportadoraA = $repository->findOneByNome('Transportadora A');
+        
+        $faixaEntrega = new FaixaEntrega();
+        $faixaEntrega->setNome('Faixa entrega 1');
+        $faixaEntrega->setCepInicial(77777777);
+        $faixaEntrega->setCepFinal(88888899);
+        $faixaEntrega->setPesoInicial(1);
+        $faixaEntrega->setPesoFinal(5);
+        $faixaEntrega->setValorQuilo(5);
+        $faixaEntrega->setValorQuiloAdicional(6.5);
+        $faixaEntrega->setPrazoEntregaInicial(5);
+        $faixaEntrega->setPrazoEntregaFinal(7);
+        $faixaEntrega->setPrazoEntregaAdicionalPorPeso(1);
+        $faixaEntrega->setPesoParaPrazoAdicional(5);
+        $faixaEntrega->setTransportadora($transportadoraA);
+
+        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        
+        $this->buildViolation('cep_no_intervalo')
+            ->atPath('property.path.cepFinal')
+            ->setParameter('%cep%', $faixaEntrega->getCepFinal())
+            ->buildNextViolation('cepinicial_cepfinal_no_intervalo')
+            ->setParameter('%cepinicial%', $faixaEntrega->getCepInicial())
+            ->setParameter('%cepfinal%', $faixaEntrega->getCepFinal())
             ->assertRaised();
     }
 }

@@ -1,6 +1,7 @@
 # This file is auto-generated during the composer install
 parameters:
     database_host: mysqldb
+    database_host_test: mysqldbtest
     database_port: null
     database_name: mydb
     database_user: user

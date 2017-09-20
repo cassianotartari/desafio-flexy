@@ -5,11 +5,14 @@ services:
         build: php7-fpm
         links:
             - db:mysqldb
+            - db_test:mysqldbtest
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
             - ./logs/symfony:/var/www/symfony/app/logs
         depends_on:
             db:
+                condition: service_healthy
+            db_test:
                 condition: service_healthy
     nginx:
         build: nginx
@@ -21,12 +24,25 @@ services:
             - ./logs/nginx/:/var/log/nginx
         links:
             - db
+            - db_test
         depends_on:
             - db
+            - db_test
     db:
         image: mysql
         volumes:
             - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        healthcheck:
+            test: exit 0
+    db_test:
+        image: mysql
+        volumes:
+            - "./.data/dbtest:/var/lib/mysql"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
