@@ -20,6 +20,7 @@ class Fixtures extends Fixture
         $user->setPassword($password);
         $user->setEmail('admin@desafioflexy.com');
         $user->setEnabled(true);
+        $user->addRole('ROLE_SUPER_ADMIN');
         $user->addRole('ROLE_ADMIN');
         $user->addRole('ROLE_SONATA_ADMIN');
 

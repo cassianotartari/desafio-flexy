@@ -118,6 +118,8 @@ sonata_admin:
     title_logo: /bundles/app/img/logo_flexy.png
     templates:
         layout:  AppBundle::layout.html.twig
+    security:
+        handler: sonata.admin.security.handler.role
     dashboard:
         groups:
             user:
