@@ -71,7 +71,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
     }
     
     public function testValidFaixaEntrega()
-    {   
+    {
         $transportadoraA = new Transportadora();
         $transportadoraA->setNome('Transportadora A');
         
@@ -113,7 +113,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
         $faixaEntrega->setPesoParaPrazoAdicional(5);
         $faixaEntrega->setTransportadora($transportadoraA);
 
-        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        $this->validator->validate($faixaEntrega, new CepNoIntervalo());
         
         $this->buildViolation('cep_no_intervalo')
             ->atPath('property.path.cepInicial')
@@ -146,7 +146,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
         $faixaEntrega->setPesoParaPrazoAdicional(5);
         $faixaEntrega->setTransportadora($transportadoraA);
 
-        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        $this->validator->validate($faixaEntrega, new CepNoIntervalo());
         
         $this->buildViolation('cep_no_intervalo')
             ->atPath('property.path.cepInicial')
@@ -176,7 +176,7 @@ class CepNoIntervaloValidatorTest extends AbstractConstraintValidatorTest
         $faixaEntrega->setPesoParaPrazoAdicional(5);
         $faixaEntrega->setTransportadora($transportadoraA);
 
-        $this->validator->validate($faixaEntrega,  new CepNoIntervalo());
+        $this->validator->validate($faixaEntrega, new CepNoIntervalo());
         
         $this->buildViolation('cep_no_intervalo')
             ->atPath('property.path.cepFinal')

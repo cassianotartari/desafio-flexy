@@ -41,7 +41,6 @@ class CalculaFreteServiceTest extends ContainerAndFixturesAwareUnitTestCase
     
     public function testCalculaFretePorCepEPeso()
     {
-                
         $this->calculaFrete = $this->get('app.calcula_frete_service');
         
         $calculosFreteResposta = $this->calculaFrete->calculaFretePorCepEPeso(88888888, 5);
@@ -64,5 +63,4 @@ class CalculaFreteServiceTest extends ContainerAndFixturesAwareUnitTestCase
         $this->assertEquals($this->user, $calculo2->getUsuario());
         $this->assertEquals(30, $calculo2->getValor());
     }
-
 }

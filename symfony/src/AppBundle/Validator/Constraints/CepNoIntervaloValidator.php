@@ -33,7 +33,7 @@ class CepNoIntervaloValidator extends ConstraintValidator
      */
     public function validate($faixaEntrega, Constraint $constraint)
     {
-        if(!is_object($faixaEntrega)) {
+        if (!is_object($faixaEntrega)) {
             $this->context->addViolation('intervalo_invalido');
             return;
         }

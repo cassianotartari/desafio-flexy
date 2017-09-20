@@ -69,14 +69,18 @@ class CalculoFreteAdminControllerTest extends WebTestCase
 
     public function testCalculaFrete()
     {
-        $crawler = $this->client->request('POST', '/admin/app/calculofrete/calcula-frete', array(
+        $crawler = $this->client->request(
+            'POST',
+            '/admin/app/calculofrete/calcula-frete',
+            array(
             'cep' => 88888888,
             'peso' => 5
         ),
         array(),
         array(
             'HTTP_X-Requested-With' => 'XMLHttpRequest',
-        ));
+        )
+        );
 
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Transportadora A', $this->client->getResponse()->getContent());

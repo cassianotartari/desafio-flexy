@@ -19,7 +19,7 @@ class ContainerAndFixturesAwareUnitTestCase extends TestCase
      */
     protected static $kernel;
     
-        /**
+    /**
      * @var ORMExecutor
      */
     private $fixtureExecutor;

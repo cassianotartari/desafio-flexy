@@ -22,5 +22,4 @@ class ValidaRequestCalculoFreteServiceTest extends ContainerAndFixturesAwareUnit
         
         $this->assertEquals(false, $validador->valida($request));
     }
-
 }

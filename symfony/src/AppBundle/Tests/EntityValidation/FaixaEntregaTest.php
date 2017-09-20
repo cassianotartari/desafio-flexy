@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 class FaixaEntregaTest extends ContainerAndFixturesAwareUnitTestCase
 {
-   
     public function setUp()
     {
         $this->addFixture(new \AppBundle\DataFixtures\ORM\Fixtures());
@@ -93,5 +92,4 @@ class FaixaEntregaTest extends ContainerAndFixturesAwareUnitTestCase
         //10 das letras e 1 por pelo validador mair ou igual a 1 do prazoEntregaFinal
         $this->assertEquals(11, count($errors));
     }
-    
 }
