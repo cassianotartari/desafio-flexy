@@ -37,7 +37,7 @@ class ContainerAndFixturesAwareUnitTestCase extends TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$kernel = new \AppKernel('dev', true);
+        self::$kernel = new \AppKernel('test', true);
         self::$kernel->boot();
 
         self::$container = self::$kernel->getContainer();

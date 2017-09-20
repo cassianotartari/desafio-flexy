@@ -50,6 +50,12 @@ class CalculoFreteAdminControllerTest extends WebTestCase
      */
     private $container;
     
+    public static function setUpBeforeClass()
+    {
+        self::$kernel = new \AppKernel('test', true);
+        self::$kernel->boot();
+    }
+    
     public function setUp()
     {
         parent::setUp();
